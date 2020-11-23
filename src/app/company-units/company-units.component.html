@@ -1,0 +1,111 @@
+<div class="wrapper">
+    <div class="container-fluid">
+        <!-- Page-Title -->
+        <div class="page-title-box">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <h4 class="page-title">Company units</h4>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-right">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
+                        <li class="breadcrumb-item active">Users</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+
+
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title mb-4">Units list <button type="button" (click)="resetForm()"
+                                class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target="#myModal"> + ADD</button></h4>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">City</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col" colspan="2">Unit Type</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let office of offices">
+                                        <td>{{office.name}}</td>
+                                        <td>{{office.city}}</td>
+                                        <td>{{office.address}}</td>
+                                        <td>{{office.businessRoles.description}}</td>
+
+                                        <td>
+                                            <div>
+                                                <button type="button" class="btn btn-primary waves-effect waves-light"
+                                                    data-toggle="modal" (click)="getIdToEditElement(office.id)" (click)="titleForModal = 'Edit'"
+                                                    data-target="#myModal">Edit</button>
+                                                <button type="button"
+                                                    class="btn btn-danger waves-effect waves-light" (click)="getIdToRemoveElement(office.id)">Remove</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END ROW -->
+
+    </div>
+    <!-- end container-fluid -->
+</div>
+<!-- end wrapper -->
+
+<!-- sample modal content -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel">{{titleForModal}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" [formGroup]="companyUnit">
+
+                <p>Name: <input class="form-control" formControlName="name" type="text" value="name"
+                        id="example-text-input"></p>
+                <p>City: <input class="form-control" formControlName="city" type="text" value="name"
+                        id="example-text-input"></p>
+                <p>Address: <input class="form-control" formControlName="address" type="text" value="name"
+                        id="example-text-input"></p>
+                <div formGroupName="businessRoles">
+                    <p>Unit type: <input class="form-control" formControlName="description" type="text" value="name"
+                            id="example-text-input"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" (click)="titleForModal === 'Add' ? createCompany() : updateCompany()" class="btn btn-primary waves-effect waves-light">Save
+                    changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Footer -->
+<footer class="footer">
+    © 2019 - 2020 L.C.M. Live Company Mood <span class="d-none d-sm-inline-block"> - Crafted with <i
+            class="mdi mdi-heart text-danger"></i> by Connecta</span>.
+</footer>

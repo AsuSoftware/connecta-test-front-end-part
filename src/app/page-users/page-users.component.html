@@ -1,0 +1,139 @@
+<div class="wrapper">
+    <div class="container-fluid">
+        <!-- Page-Title -->
+        <div class="page-title-box">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <h4 class="page-title">System users
+                        <button type="button" data-toggle="modal" data-target="#employeeModal"
+                            class="btn btn-info waves-effect waves-light">
+                            + ADD</button></h4>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-right">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
+                        <li class="breadcrumb-item active">Users</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+
+
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title mb-4">User list</h4>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Department</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Unit</th>
+                                        <th scope="col" colspan="2">Since</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let employee of employeeList; let i = index">
+                                    <tr>
+                                        <td>{{employee.name}} {{employee.surname}}</td>
+                                        <td><span
+                                                [ngClass]="getStatusOfEmployee(employee)">{{employee.active === 'Active' ? 'Active' : 'Fired'}}</span>
+                                        </td>
+                                        <td>{{employee.office.name}}</td>
+                                        <td>
+                                            {{employee.business_roles.description}}
+                                        </td>
+                                        <td> {{employee.office.address}}</td>
+                                        <td>{{employee.insert_date}}
+                                        </td>
+
+                                        <td>
+                                            <div>
+                                                <button type="button" class="btn btn-primary waves-effect waves-light"
+                                                    data-toggle="modal" (click)="setCurrentElement(employee.id)"
+                                                    data-target="#employeeModal">Edit</button>
+                                                <button type="button" (click)="removeEmployee(employee.id)"
+                                                    class="btn btn-danger waves-effect waves-light">Remove</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END ROW -->
+
+    </div>
+    <!-- end container-fluid -->
+</div>
+<!-- end wrapper -->
+
+<!-- sample modal content -->
+<div id="employeeModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel">Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="employeeData" class="modal-body">
+                <p>Name: <input class="form-control" formControlName="name" type="text" value="name"
+                        id="example-text-input"></p>
+                <p>Surname: <input class="form-control" formControlName="surname" type="text" value="name"
+                        id="example-text-input"></p>
+                <div formGroupName="office">
+                    <p>Department: <select class="form-control" formControlName="name">
+                            <option>Select</option>
+                            <option>Marketing</option>
+                            <option>Administration</option>
+                        </select></p>
+                </div>
+                <div formGroupName="business_roles">
+                    <p>Type: <select class="form-control" formControlName="description">
+                            <option>Select</option>
+                            <option>Admin</option>
+                            <option>Manager</option>
+                            <option>User</option>
+                        </select></p>
+                </div>
+                <div formGroupName="office">
+                    <p>Unit: <select class="form-control" formControlName="address">
+                            <option>Select</option>
+                            <option>Livith Padova</option>
+                            <option>Livith Montespertoli</option>
+                        </select></p>
+                </div>
+                <p>Status: <select class="form-control" formControlName="active">
+                        <option>Select</option>
+                        <option>Active</option>
+                        <option>Not Active</option>
+                    </select></p>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" (click)="insertEmployee()" class="btn btn-primary waves-effect waves-light">Save
+                    changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- Footer -->
+<footer class="footer">
+    © 2019 - 2020 L.C.M. Live Company Mood <span class="d-none d-sm-inline-block"> - Crafted with <i
+            class="mdi mdi-heart text-danger"></i> by Connecta</span>.
+</footer>
